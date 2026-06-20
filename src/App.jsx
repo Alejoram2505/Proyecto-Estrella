@@ -5,6 +5,17 @@ import InteractiveStars from './components/InteractiveStars.jsx';
 import MessageModal from './components/MessageModal.jsx';
 import { finalMessage, messages } from './data/messages.js';
 
+const FALLBACK_TITLE = 'Una estrella para ti';
+const FALLBACK_TEXT = 'Este mensaje todavía está esperando ser escrito.';
+const FINAL_REVEAL_COUNT = 7;
+
+function normalizeCard(card) {
+  return {
+    title: typeof card?.title === 'string' && card.title.trim() ? card.title : FALLBACK_TITLE,
+    text: typeof card?.text === 'string' && card.text.trim() ? card.text : FALLBACK_TEXT,
+  };
+}
+
 export default function App() {
   const [started, setStarted] = useState(false);
   const [burstSignal, setBurstSignal] = useState(0);
@@ -13,7 +24,7 @@ export default function App() {
   const [selectedMessage, setSelectedMessage] = useState(null);
   const [finalOpened, setFinalOpened] = useState(false);
 
-  const finalThreshold = Math.min(4, messages.length);
+  const finalThreshold = Math.min(FINAL_REVEAL_COUNT, messages.length);
   const finalVisible = started && openedMessages.size >= finalThreshold;
 
   const statusText = useMemo(() => {
@@ -51,7 +62,7 @@ export default function App() {
     });
     setSelectedMessage({
       type: 'message',
-      text: messages[index],
+      ...normalizeCard(messages[index]),
     });
     setSparkleSignal((value) => value + 1);
     setBurstSignal((value) => value + 1);
@@ -61,7 +72,7 @@ export default function App() {
     setFinalOpened(true);
     setSelectedMessage({
       type: 'final',
-      text: finalMessage,
+      ...normalizeCard(finalMessage),
     });
     setBurstSignal((value) => value + 3);
   };
@@ -99,7 +110,8 @@ export default function App() {
 
       <MessageModal
         open={Boolean(selectedMessage)}
-        message={selectedMessage?.text ?? ''}
+        title={selectedMessage?.title ?? FALLBACK_TITLE}
+        text={selectedMessage?.text ?? FALLBACK_TEXT}
         isFinal={selectedMessage?.type === 'final'}
         onClose={handleCloseModal}
       />

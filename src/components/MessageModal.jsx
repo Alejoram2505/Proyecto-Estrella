@@ -1,6 +1,12 @@
 import { useEffect } from 'react';
 
-export default function MessageModal({ open, message, isFinal, onClose }) {
+const FALLBACK_TITLE = 'Una estrella para ti';
+const FALLBACK_TEXT = 'Este mensaje todavía está esperando ser escrito.';
+
+export default function MessageModal({ open, title, text, isFinal, onClose }) {
+  const safeTitle = typeof title === 'string' && title.trim() ? title : FALLBACK_TITLE;
+  const safeText = typeof text === 'string' && text.trim() ? text : FALLBACK_TEXT;
+
   useEffect(() => {
     if (!open) {
       return undefined;
@@ -31,12 +37,15 @@ export default function MessageModal({ open, message, isFinal, onClose }) {
         role="dialog"
         aria-modal="true"
         aria-labelledby="message-title"
+        aria-describedby="message-text"
         onClick={(event) => event.stopPropagation()}
       >
-        <p className="message-kicker" id="message-title">
-          {isFinal ? 'La estrella que faltaba' : 'Un mensaje del cielo'}
+        <h2 className="message-title" id="message-title">
+          {safeTitle}
+        </h2>
+        <p className="message-text" id="message-text">
+          {safeText}
         </p>
-        <p className="message-text">{message}</p>
         <button className="modal-close" type="button" aria-label="Cerrar mensaje" onClick={onClose}>
           Cerrar
         </button>
