@@ -26,7 +26,7 @@ function createStarPositions(count) {
     return {
       x: Number(x.toFixed(2)),
       y: Number(y.toFixed(2)),
-      size: 26 + (index % 4) * 3,
+      size: 48,
       delay: `${(index % 8) * 0.22}s`,
     };
   });
@@ -85,7 +85,7 @@ export default function InteractiveStars({
           style={{
             '--star-left': '50%',
             '--star-top': '62%',
-            '--star-size': '48px',
+            '--star-size': '58px',
             '--star-delay': '0s',
           }}
           aria-label="Abrir estrella especial"

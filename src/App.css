@@ -237,8 +237,8 @@ button {
 }
 
 .interactive-star__core {
-  width: 4px;
-  height: 4px;
+  width: 4.8px;
+  height: 4.8px;
   border-radius: 50%;
   background: #ffffff;
   box-shadow:
@@ -253,7 +253,7 @@ button {
 }
 
 .interactive-star__ray--vertical {
-  width: 1.35px;
+  width: 1.55px;
   height: 100%;
   background: linear-gradient(180deg, transparent 0, rgba(225, 240, 255, 0.055) 22%, rgba(255, 255, 255, 0.94) 50%, rgba(225, 240, 255, 0.055) 78%, transparent 100%);
   filter: blur(0.12px);
@@ -262,7 +262,7 @@ button {
 
 .interactive-star__ray--horizontal {
   width: 100%;
-  height: 1.35px;
+  height: 1.55px;
   background: linear-gradient(90deg, transparent 0, rgba(225, 240, 255, 0.05) 22%, rgba(255, 255, 255, 0.9) 50%, rgba(225, 240, 255, 0.05) 78%, transparent 100%);
   filter: blur(0.1px);
   transform: translate(-50%, -50%);
@@ -319,8 +319,8 @@ button {
 
 .interactive-star--final {
   z-index: 5;
-  width: 66px;
-  height: 66px;
+  width: 78px;
+  height: 78px;
   filter:
     drop-shadow(0 0 3px rgba(255, 255, 255, 0.8))
     drop-shadow(0 0 10px rgba(255, 214, 150, 0.46))
@@ -336,8 +336,8 @@ button {
 }
 
 .interactive-star--final .interactive-star__core {
-  width: 5px;
-  height: 5px;
+  width: 5.4px;
+  height: 5.4px;
   background: #fffdf4;
   box-shadow:
     0 0 3px rgba(255, 255, 255, 0.92),
@@ -600,41 +600,41 @@ button {
   }
 
   .interactive-star {
-    width: max(34px, calc(var(--star-size) * 1.05));
-    height: max(34px, calc(var(--star-size) * 1.05));
+    width: max(48px, calc(var(--star-size) * 1.08));
+    height: max(48px, calc(var(--star-size) * 1.08));
   }
 
   .interactive-star__sparkle {
-    width: calc(var(--star-size) * 0.74);
-    height: calc(var(--star-size) * 0.74);
+    width: calc(var(--star-size) * 0.86);
+    height: calc(var(--star-size) * 0.86);
   }
 
   .interactive-star__core {
-    width: 3.2px;
-    height: 3.2px;
+    width: 4px;
+    height: 4px;
   }
 
   .interactive-star__ray--vertical {
-    width: 1.15px;
+    width: 1.35px;
   }
 
   .interactive-star__ray--horizontal {
-    height: 1.15px;
+    height: 1.35px;
   }
 
   .interactive-star--final {
-    width: 50px;
-    height: 50px;
+    width: 62px;
+    height: 62px;
   }
 
   .interactive-star--final .interactive-star__sparkle {
-    width: calc(var(--star-size) * 0.82);
-    height: calc(var(--star-size) * 0.82);
+    width: calc(var(--star-size) * 0.9);
+    height: calc(var(--star-size) * 0.9);
   }
 
   .interactive-star--final .interactive-star__core {
-    width: 4px;
-    height: 4px;
+    width: 4.8px;
+    height: 4.8px;
   }
 
   .message-card {
