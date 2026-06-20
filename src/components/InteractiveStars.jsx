@@ -26,7 +26,7 @@ function createStarPositions(count) {
     return {
       x: Number(x.toFixed(2)),
       y: Number(y.toFixed(2)),
-      size: 22 + (index % 4) * 3,
+      size: 26 + (index % 4) * 3,
       delay: `${(index % 8) * 0.22}s`,
     };
   });
@@ -66,7 +66,15 @@ export default function InteractiveStars({
             }}
             aria-label={`Abrir mensaje ${index + 1}`}
             onClick={() => onSelect(index)}
-          />
+          >
+            <span className="interactive-star__sparkle" aria-hidden="true">
+              <span className="interactive-star__core" />
+              <span className="interactive-star__ray interactive-star__ray--vertical" />
+              <span className="interactive-star__ray interactive-star__ray--horizontal" />
+              <span className="interactive-star__ray interactive-star__ray--diagonal-a" />
+              <span className="interactive-star__ray interactive-star__ray--diagonal-b" />
+            </span>
+          </button>
         );
       })}
 
@@ -77,12 +85,20 @@ export default function InteractiveStars({
           style={{
             '--star-left': '50%',
             '--star-top': '62%',
-            '--star-size': '42px',
+            '--star-size': '48px',
             '--star-delay': '0s',
           }}
           aria-label="Abrir estrella especial"
           onClick={onFinalSelect}
-        />
+        >
+          <span className="interactive-star__sparkle" aria-hidden="true">
+            <span className="interactive-star__core" />
+            <span className="interactive-star__ray interactive-star__ray--vertical" />
+            <span className="interactive-star__ray interactive-star__ray--horizontal" />
+            <span className="interactive-star__ray interactive-star__ray--diagonal-a" />
+            <span className="interactive-star__ray interactive-star__ray--diagonal-b" />
+          </span>
+        </button>
       )}
     </div>
   );

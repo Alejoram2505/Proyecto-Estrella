@@ -161,7 +161,6 @@ button {
 }
 
 .primary-action:focus-visible,
-.interactive-star:focus-visible,
 .modal-close:focus-visible {
   outline: 2px solid rgba(255, 245, 224, 0.9);
   outline-offset: 4px;
@@ -178,83 +177,284 @@ button {
   position: absolute;
   left: var(--star-left);
   top: var(--star-top);
-  width: var(--star-size);
-  height: var(--star-size);
+  width: max(38px, calc(var(--star-size) * 1.35));
+  height: max(38px, calc(var(--star-size) * 1.35));
   border: 0;
-  border-radius: 50%;
   padding: 0;
   background: transparent;
   cursor: pointer;
   pointer-events: auto;
   transform: translate(-50%, -50%) scale(1);
-  animation: starFloat 4.6s ease-in-out var(--star-delay) infinite;
+  animation: starFloat 6.8s ease-in-out var(--star-delay) infinite;
+  filter:
+    drop-shadow(0 0 3px rgba(255, 255, 255, 0.74))
+    drop-shadow(0 0 8px rgba(188, 215, 255, 0.28));
   transition:
     transform 220ms ease,
     filter 220ms ease,
     opacity 220ms ease;
 }
 
-.interactive-star::before,
-.interactive-star::after {
-  position: absolute;
-  inset: 0;
-  content: "";
-  border-radius: inherit;
-  transition:
-    transform 220ms ease,
-    opacity 220ms ease,
-    box-shadow 220ms ease;
+.interactive-star:focus-visible {
+  outline: none;
 }
 
 .interactive-star::before {
-  background:
-    radial-gradient(circle, rgba(255, 255, 255, 1) 0 13%, rgba(255, 213, 143, 0.94) 14% 23%, rgba(255, 213, 143, 0.24) 35%, transparent 70%);
-  box-shadow:
-    0 0 14px rgba(255, 213, 143, 0.8),
-    0 0 34px rgba(246, 167, 189, 0.32);
+  position: absolute;
+  inset: 32%;
+  content: "";
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(221, 235, 255, 0.2) 0, rgba(221, 235, 255, 0.045) 34%, transparent 68%);
+  opacity: 0.2;
+  filter: blur(5px);
+  transition:
+    transform 220ms ease,
+    opacity 220ms ease;
 }
 
-.interactive-star::after {
-  inset: 22%;
-  border-radius: 0;
-  background:
-    linear-gradient(90deg, transparent 43%, rgba(255, 255, 255, 0.94) 48% 52%, transparent 57%),
-    linear-gradient(0deg, transparent 43%, rgba(255, 255, 255, 0.94) 48% 52%, transparent 57%);
-  opacity: 0.78;
-  transform: rotate(45deg);
+.interactive-star__sparkle {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: var(--star-size);
+  height: var(--star-size);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  transform-origin: center;
+  opacity: 0.94;
+  filter: blur(0.06px);
+  animation: starBreath 4.8s ease-in-out var(--star-delay) infinite;
+}
+
+.interactive-star__core,
+.interactive-star__ray {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  display: block;
+  pointer-events: none;
+  transform-origin: center;
+}
+
+.interactive-star__core {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow:
+    0 0 3px rgba(255, 255, 255, 0.95),
+    0 0 7px rgba(194, 219, 255, 0.38);
+  transform: translate(-50%, -50%);
+}
+
+.interactive-star__ray {
+  border-radius: 999px;
+  opacity: 0.86;
+}
+
+.interactive-star__ray--vertical {
+  width: 1.35px;
+  height: 100%;
+  background: linear-gradient(180deg, transparent 0, rgba(225, 240, 255, 0.055) 22%, rgba(255, 255, 255, 0.94) 50%, rgba(225, 240, 255, 0.055) 78%, transparent 100%);
+  filter: blur(0.12px);
+  transform: translate(-50%, -50%);
+}
+
+.interactive-star__ray--horizontal {
+  width: 100%;
+  height: 1.35px;
+  background: linear-gradient(90deg, transparent 0, rgba(225, 240, 255, 0.05) 22%, rgba(255, 255, 255, 0.9) 50%, rgba(225, 240, 255, 0.05) 78%, transparent 100%);
+  filter: blur(0.1px);
+  transform: translate(-50%, -50%);
+}
+
+.interactive-star__ray--diagonal-a,
+.interactive-star__ray--diagonal-b {
+  width: 64%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0, rgba(225, 240, 255, 0.03) 24%, rgba(255, 255, 255, 0.46) 50%, rgba(225, 240, 255, 0.03) 76%, transparent 100%);
+  opacity: 0.54;
+  filter: blur(0.12px);
+}
+
+.interactive-star__ray--diagonal-a {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.interactive-star__ray--diagonal-b {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.interactive-star--discovered .interactive-star__sparkle {
+  opacity: 0.58;
+}
+
+.interactive-star--discovered::before {
+  opacity: 0.1;
 }
 
 .interactive-star:hover,
 .interactive-star:focus-visible {
-  filter: brightness(1.22);
-  transform: translate(-50%, -50%) scale(1.26);
+  filter:
+    drop-shadow(0 0 4px rgba(255, 255, 255, 0.9))
+    drop-shadow(0 0 11px rgba(202, 225, 255, 0.42));
+  transform: translate(-50%, -50%) scale(1.14);
 }
 
 .interactive-star:hover::before,
 .interactive-star:focus-visible::before {
-  box-shadow:
-    0 0 22px rgba(255, 236, 196, 0.98),
-    0 0 54px rgba(246, 167, 189, 0.52);
+  opacity: 0.28;
+  transform: scale(1.08);
 }
 
-.interactive-star--discovered {
-  opacity: 0.62;
+.interactive-star:hover .interactive-star__sparkle,
+.interactive-star:focus-visible .interactive-star__sparkle {
+  opacity: 1;
+}
+
+.interactive-star:hover .interactive-star__ray,
+.interactive-star:focus-visible .interactive-star__ray {
+  opacity: 0.98;
 }
 
 .interactive-star--final {
   z-index: 5;
+  width: 66px;
+  height: 66px;
+  filter:
+    drop-shadow(0 0 3px rgba(255, 255, 255, 0.8))
+    drop-shadow(0 0 10px rgba(255, 214, 150, 0.46))
+    drop-shadow(0 0 16px rgba(255, 198, 122, 0.18));
   animation:
     finalStarArrive 900ms cubic-bezier(0.2, 0.8, 0.2, 1) both,
-    finalStarPulse 2.5s ease-in-out 900ms infinite;
+    finalStarPulse 3.8s ease-in-out 900ms infinite;
+}
+
+.interactive-star--final .interactive-star__sparkle {
+  width: var(--star-size);
+  height: var(--star-size);
+}
+
+.interactive-star--final .interactive-star__core {
+  width: 5px;
+  height: 5px;
+  background: #fffdf4;
+  box-shadow:
+    0 0 3px rgba(255, 255, 255, 0.92),
+    0 0 10px rgba(255, 222, 157, 0.42);
+}
+
+.interactive-star--final .interactive-star__ray--vertical {
+  background: linear-gradient(180deg, transparent 0, rgba(255, 232, 183, 0.06) 23%, rgba(255, 255, 255, 0.96) 50%, rgba(255, 232, 183, 0.06) 77%, transparent 100%);
+}
+
+.interactive-star--final .interactive-star__ray--horizontal {
+  background: linear-gradient(90deg, transparent 0, rgba(255, 232, 183, 0.055) 23%, rgba(255, 255, 255, 0.92) 50%, rgba(255, 232, 183, 0.055) 77%, transparent 100%);
+}
+
+.interactive-star--final .interactive-star__ray--diagonal-a,
+.interactive-star--final .interactive-star__ray--diagonal-b {
+  width: 68%;
+  background: linear-gradient(90deg, transparent 0, rgba(255, 232, 183, 0.04) 24%, rgba(255, 246, 218, 0.54) 50%, rgba(255, 232, 183, 0.04) 76%, transparent 100%);
+  opacity: 0.64;
 }
 
 .interactive-star--final::before {
-  background:
-    radial-gradient(circle, #fff 0 9%, #fff5d8 10% 18%, rgba(255, 203, 110, 0.7) 28%, rgba(255, 180, 112, 0.28) 48%, transparent 73%);
-  box-shadow:
-    0 0 24px rgba(255, 213, 143, 0.96),
-    0 0 72px rgba(255, 185, 112, 0.62),
-    0 0 124px rgba(246, 167, 189, 0.3);
+  inset: 32%;
+  background: radial-gradient(circle, rgba(255, 217, 151, 0.23) 0, rgba(255, 217, 151, 0.055) 34%, transparent 70%);
+  opacity: 0.22;
+  filter: blur(6px);
+}
+
+.interactive-star--final:hover,
+.interactive-star--final:focus-visible {
+  filter:
+    drop-shadow(0 0 4px rgba(255, 255, 255, 0.9))
+    drop-shadow(0 0 13px rgba(255, 224, 164, 0.54))
+    drop-shadow(0 0 21px rgba(255, 198, 122, 0.22));
+}
+
+.interactive-star--final:hover .interactive-star__ray,
+.interactive-star--final:focus-visible .interactive-star__ray {
+  opacity: 1;
+}
+
+/* Keep focus visible without making the star read like a UI sticker. */
+.interactive-star:focus-visible::after {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: calc(var(--star-size) + 20px);
+  height: calc(var(--star-size) + 20px);
+  border: 1px solid rgba(226, 241, 255, 0.36);
+  border-radius: 50%;
+  content: "";
+  transform: translate(-50%, -50%);
+}
+
+.interactive-star--final:focus-visible::after {
+  border-color: rgba(255, 218, 150, 0.4);
+}
+
+.interactive-star--discovered {
+  opacity: 0.66;
+}
+
+.interactive-star--final.interactive-star--discovered {
+  opacity: 0.82;
+}
+
+@keyframes starBreath {
+  0%,
+  100% {
+    filter: blur(0.06px) brightness(0.98);
+    transform: translate(-50%, -50%) scale(0.99);
+  }
+
+  50% {
+    filter: blur(0.08px) brightness(1.1);
+    transform: translate(-50%, -50%) scale(1.035);
+  }
+}
+
+@keyframes starFloat {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  50% {
+    transform: translate(-50%, calc(-50% - 2px)) scale(1.015);
+  }
+}
+
+@keyframes finalStarArrive {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.48);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes finalStarPulse {
+  0%,
+  100% {
+    filter:
+      drop-shadow(0 0 3px rgba(255, 255, 255, 0.8))
+      drop-shadow(0 0 10px rgba(255, 214, 150, 0.46))
+      drop-shadow(0 0 16px rgba(255, 198, 122, 0.18));
+  }
+
+  50% {
+    filter:
+      drop-shadow(0 0 4px rgba(255, 255, 255, 0.88))
+      drop-shadow(0 0 12px rgba(255, 224, 164, 0.52))
+      drop-shadow(0 0 20px rgba(255, 198, 122, 0.22));
+  }
 }
 
 .modal-backdrop {
@@ -367,40 +567,6 @@ button {
   }
 }
 
-@keyframes starFloat {
-  0%,
-  100% {
-    transform: translate(-50%, -50%) scale(1);
-  }
-
-  50% {
-    transform: translate(-50%, calc(-50% - 5px)) scale(1.06);
-  }
-}
-
-@keyframes finalStarArrive {
-  from {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0.28);
-  }
-
-  to {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-  }
-}
-
-@keyframes finalStarPulse {
-  0%,
-  100% {
-    filter: brightness(1);
-  }
-
-  50% {
-    filter: brightness(1.35);
-  }
-}
-
 @media (max-width: 720px) {
   .intro {
     width: min(88vw, 520px);
@@ -434,13 +600,41 @@ button {
   }
 
   .interactive-star {
-    width: calc(var(--star-size) * 0.92);
-    height: calc(var(--star-size) * 0.92);
+    width: max(34px, calc(var(--star-size) * 1.05));
+    height: max(34px, calc(var(--star-size) * 1.05));
+  }
+
+  .interactive-star__sparkle {
+    width: calc(var(--star-size) * 0.74);
+    height: calc(var(--star-size) * 0.74);
+  }
+
+  .interactive-star__core {
+    width: 3.2px;
+    height: 3.2px;
+  }
+
+  .interactive-star__ray--vertical {
+    width: 1.15px;
+  }
+
+  .interactive-star__ray--horizontal {
+    height: 1.15px;
   }
 
   .interactive-star--final {
-    width: 38px;
-    height: 38px;
+    width: 50px;
+    height: 50px;
+  }
+
+  .interactive-star--final .interactive-star__sparkle {
+    width: calc(var(--star-size) * 0.82);
+    height: calc(var(--star-size) * 0.82);
+  }
+
+  .interactive-star--final .interactive-star__core {
+    width: 4px;
+    height: 4px;
   }
 
   .message-card {
